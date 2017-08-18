@@ -2,6 +2,7 @@ package com.hencoder.hencoderpracticedraw2.practice;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -24,6 +25,11 @@ public class Practice13ShadowLayerView extends View {
 
     {
         // 使用 Paint.setShadowLayer() 设置阴影
+        // 阴影半径，水平偏移量，垂直偏移量，阴影颜色
+        paint.setShadowLayer(10, 10, 0, Color.BLACK);
+
+        // 在硬件加速开启的情况下，只支持文字绘制
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
 
     @Override
@@ -32,5 +38,10 @@ public class Practice13ShadowLayerView extends View {
 
         paint.setTextSize(120);
         canvas.drawText("Hello HenCoder", 50, 200, paint);
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(20);
+        paint.setShadowLayer(10, 10, 10, Color.BLACK);
+        canvas.drawCircle(70, 340, 50, paint);
     }
 }

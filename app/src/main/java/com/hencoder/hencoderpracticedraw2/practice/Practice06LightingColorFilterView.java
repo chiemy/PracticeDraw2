@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -36,11 +39,22 @@ public class Practice06LightingColorFilterView extends View {
         super.onDraw(canvas);
 
         // 使用 Paint.setColorFilter() 来设置 LightingColorFilter
+        paint.setColorFilter(createLightingColorFilter("#00FFFF", "#000000"));
 
         // 第一个 LightingColorFilter：去掉红色部分
         canvas.drawBitmap(bitmap, 0, 0, paint);
 
+        paint.setColorFilter(createLightingColorFilter("#FFFFFF", "#003300"));
         // 第二个 LightingColorFilter：增强绿色部分
         canvas.drawBitmap(bitmap, bitmap.getWidth() + 100, 0, paint);
+    }
+
+    @NonNull
+    private LightingColorFilter createLightingColorFilter(String mulColor, String addColor) {
+        // 第一个参数 colorMultiply ，第二个参数 colorAdd
+        // R' = R * colorMultiply.R + colorAdd.R
+        // G' = G * colorMultiply.G + colorAdd.G
+        // B' = B * colorMultiply.B + colorAdd.B
+        return new LightingColorFilter(Color.parseColor(mulColor), Color.parseColor(addColor));
     }
 }
